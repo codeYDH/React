@@ -1,0 +1,87 @@
+<html>
+<meta charset="utf-8">
+  <head>
+    <title>Hello React</title>
+    <script src="build/react.js"></script>
+    <script src="build/JSXTransformer.js"></script>
+    <script src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
+    <!-- 不必要的 定义Markdown-->
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/showdown/0.3.1/showdown.min.js"></script>
+  </head>
+  <body>
+    <div id="content"></div>
+    <script type="text/jsx">
+    //服务器端的json格式数据，这里用于调试直接写入
+      var data = [{
+        author: "Pete Hunt",
+        text: "This is one comment"
+      }, {
+        author: "Jordan Walke",
+        text: "This is *another* comment"
+      }];
+      var Box=React.createClass({
+        render:function(){
+          return (
+             <div className="Box">
+             <h1>评论：</h1>
+                <BoxList data={this.props.data}/>
+                <BoxForm />
+             </div>
+          );
+        }
+      });
+
+      var BoxList=React.createClass({
+        render:function(){
+          //return之前定义将要渲染怎样的内容
+          var commentNodes = this.props.data.map(function (comment) {
+            return (
+              <Comment author={comment.author}>
+                {comment.text}
+              </Comment>
+            );
+          });
+          return (
+            <div className="BoxList">
+              {commentNodes}
+            </div>
+          );
+        }
+      });
+
+      var BoxForm=React.createClass({
+        render:function(){
+          return (
+            <div className="BoxForm">
+            我是评论框
+            </div>
+          );
+        }
+      });
+
+      var converter = new Showdown.converter();//定义Markdown 格式，初始化为Markdown 
+      var Comment=React.createClass({
+        render:function(){
+          //将内嵌文本转换为html格式,下面用特殊的API输出htmldangerouslySetInnerHTML={{__html: rawMarkup}}
+          // {converter.makeHtml(this.props.children.toString())};
+          // {this.props.children}普通的打印出Comment的内嵌元素文本
+          var rawMarkup = converter.makeHtml(this.props.children.toString());
+          return(
+            <div className="comment">
+              <h2 className="commentAuthor">
+                {this.props.author}
+              </h2>
+              <span dangerouslySetInnerHTML={{__html: rawMarkup}} />
+            </div>
+          )
+        }
+      })
+
+
+      React.render(
+        <Box data={data}/>,
+        document.getElementById('content')
+      );
+    </script>
+  </body>
+</html>
