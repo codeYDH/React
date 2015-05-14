@@ -1,0 +1,59 @@
+<!-- 
+    1：要渲染 HTML 标签，只需在 JSX 里使用小写字母开头的标签名。
+      var myDivElement = <div className="foo" />;
+      React.render(myDivElement, document.body);
+    2：要渲染 React 组件，只需创建一个大写字母开头的本地变量。
+      var MyComponent = React.createClass({/*...*/});
+      var myElement = <MyComponent someProperty={true} />;
+      React.render(myElement, document.body);
+ -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="build/react.js"></script>
+    <script src="build/JSXTransformer.js"></script>
+    <style type="text/css">
+      a.nameText {
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="example"></div>
+    <script type="text/jsx">
+      var Avatar = React.createClass({
+      render: function() {
+        return (
+          <div>
+            <ProfilePic username={this.props.username} />
+            <ProfileLink username={this.props.username} />
+          </div>
+        );
+      }
+    });
+
+    var ProfilePic = React.createClass({
+      render: function() {
+        return (
+          <img src={'http://graph.facebook.com/' + this.props.username + '/picture'} />
+        );
+      }
+    });
+
+    var ProfileLink = React.createClass({
+      render: function() {
+        return (
+          <a href={'http://www.facebook.com/' + this.props.username} className="nameText">
+            {this.props.username}
+          </a>
+        );
+      }
+    });
+
+    React.render(
+      <Avatar username="niandong" />,
+      document.getElementById('example')
+    );
+    </script>
+  </body>
+</html>
