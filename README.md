@@ -9,4 +9,4 @@
 <h3>demo4</h3>
 <p>添加组件显示用户facebook头像以及用户名，添加class类，并定义样式</p>
 <h3>demo5</h3>
-<p>显示作者自己的facebook头像</p>
+<p>显示作者自己的facebook头像,并用var作用域的问题传值</p>
