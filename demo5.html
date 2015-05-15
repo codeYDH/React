@@ -10,13 +10,11 @@
   <body>
     <div id="example"></div>
     <script type="text/jsx">
-
       var Touxiang= React.createClass({
         render:function () {
-          var name=this.props.username;
           return (
             <div>
-              <Tupian  username={name}/>
+              <Tupian  username={this.props.username}/>
             </div>
             )
         }
@@ -24,9 +22,8 @@
 
       var Tupian=React.createClass({
         render:function(){
-          var name=this.props.username;
           return (
-            <img src={"http://graph.facebook.com/"+name+"/picture"}  />
+            <img src={"http://graph.facebook.com/"+this.props.username+"/picture"}  />
           )
         }
       });
