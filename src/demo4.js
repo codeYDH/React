@@ -1,3 +1,4 @@
+// hahahah
 var Avatar = React.createClass({
       render: function() {
         return (
